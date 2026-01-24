@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>أي شخصية من يوميات مصاص دماء أنت؟</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #0f0f1a, #1c1c2e);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .box {
+        background: rgba(0,0,0,0.7);
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(255,0,0,0.2);
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        color: #e63946;
+    }
+
+    .question {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: #1c1c2e;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #e63946;
+    }
+
+    .result {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h1>🩸 اختبار الشخصية</h1>
+    <div id="quiz">
+        <div class="question" id="question"></div>
+        <div id="answers"></div>
+    </div>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+const questions = [
+    {
+        q: "كيف تتصرف وقت الخطر؟",
+        a: [
+            { text: "أواجه مهما كان الثمن", type: "damon" },
+            { text: "أحاول أحمي الجميع بهدوء", type: "stefan" },
+            { text: "أفكر بعقلي أولًا", type: "bonnie" }
+        ]
+    },
+    {
+        q: "شو الأهم عندك؟",
+        a: [
+            { text: "الحب", type: "elena" },
+            { text: "القوة", type: "damon" },
+            { text: "العائلة", type: "stefan" }
+        ]
+    },
+    {
+        q: "كيف يصفك الناس؟",
+        a: [
+            { text: "غامض", type: "damon" },
+            { text: "طيب", type: "stefan" },
+            { text: "قوي وذكي", type: "bonnie" }
+        ]
+    }
+];
+
+let current = 0;
+let score = { damon:0, stefan:0, elena:0, bonnie:0 };
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+const resultEl = document.getElementById("result");
+
+function showQuestion() {
+    questionEl.textContent = questions[current].q;
+    answersEl.innerHTML = "";
+    questions[current].a.forEach(ans => {
+        const btn = document.createElement("button");
+        btn.textContent = ans.text;
+        btn.onclick = () => {
+            score[ans.type]++;
+            current++;
+            current < questions.length ? showQuestion() : showResult();
+        };
+        answersEl.appendChild(btn);
+    });
+}
+
+function showResult() {
+    document.getElementById("quiz").style.display = "none";
+    let character = Object.keys(score).reduce((a,b)=> score[a]>score[b]?a:b);
+
+    const descriptions = {
+        damon: "😈 أنت ديمون سالفتور — جريء، خطير، وقلبك أطيب مما يظهر.",
+        stefan: "😇 أنت ستيفان سالفتور — إنساني، هادئ، وتضحي بنفسك.",
+        elena: "❤️ أنت إلينا جيلبرت — عاطفي، وفيّ، وقوي من الداخل.",
+        bonnie: "🔮 أنت بوني بينيت — ذكية، قوية، وتتحملين مسؤولية كبيرة."
+    };
+
+    resultEl.textContent = descriptions[character];
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
