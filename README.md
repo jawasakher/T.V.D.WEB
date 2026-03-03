@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 <p align="center">
-  <img src="./public/tvdweb-preview.png" alt="T.V.D.WEB Preview" width="800"/>
+  <img src="tvdweb-preview.png" alt="T.V.D.WEB Preview" width="800"/>
 </p>
 
 ## 📌 Overview
